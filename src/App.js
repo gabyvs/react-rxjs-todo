@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Subject } from 'rxjs';
+import { Subject }          from 'rxjs';
 import './App.css';
 import AddTodo              from './AddTodo';
 import TodoList             from './TodoList';
+
 let yesterday = new Date();
 yesterday.setDate(yesterday.getDate() - 1);
 
@@ -19,9 +20,12 @@ class App extends Component {
     }]
   };
 
+  store = new Subject();
+
   componentDidMount () {
-    const subject = new Subject();
-    console.log(subject);
+    this.store.subscribe(
+      state => this.setState(state)
+    );
   }
 
   addTodo = (text) => {
@@ -32,17 +36,17 @@ class App extends Component {
         id: new Date()
       }]
     };
-    this.setState(newState);
+    this.store.next(newState);
   };
 
   removeTodo = (id) => {
-    this.setState({
+    this.store.next({
       todos: this.state.todos.filter((todo) => todo.id !== id)
     });
   };
 
   toggleTodo = (id) => {
-    this.setState({
+    this.store.next({
       todos: this.state.todos.map((todo) => {
         if (todo.id === id) return { ...todo, completed: !todo.completed };
         return todo;
