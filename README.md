@@ -1,3 +1,7 @@
+This is a very simple project for testing the concept of using rxjs instead of Redux to handle state, and separate the logic of the application to pure javascript, making it very easy to test.
+
+The project is a todo app, with no styles at all.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
